@@ -1,0 +1,176 @@
+body{
+  overflow-x: hidden;
+}
+
+.Auth-container{
+background-image: url("/src/assets/imgs/ella-olsson-C1Q3qOTlegg-unsplash\ 1.png");
+  
+}
+.bg-overlay{
+ background-image: linear-gradient( to left, rgba(0,0,0,0.4),rgba(47, 100, 51, 0.7));
+}
+.mob{
+  position: absolute;
+  bottom:45% ;
+  left: 27%;
+
+ 
+}
+.email{
+  position: relative;
+
+ 
+
+}
+.img-container{
+  width: 50px;
+}
+.bg-white{
+  border-radius: 12px;
+}
+.logBtn{
+  margin-bottom: 15px;
+}
+.text-color{
+  color: #B4B4B4;
+}
+/* sideBar Styling */
+.sideBar-Container .ps-sidebar-container{
+  background-color: #1f263e;
+  color: #fff;
+  padding-top: 20px;
+  border-top-right-radius: 25px;
+}
+.sideBar-Container .ps-sidebar-container .ps-menu-button:hover{
+  background-color: rgba(0, 148, 71,0.7);
+  
+}
+li.ps-menuitem-root.logo :hover{
+  background-color: transparent!important;
+}
+li.ps-menuitem-root.logo{
+  margin: 15px 0px;
+}
+.css-1wvake5{
+  border: none!important;
+}
+.ps-sidebar-container{
+  height: 200vh!important
+}
+.Side{
+  height: 100vh!important;
+}
+/* navbar Styling */
+.navbar{
+  background-color: hsl(220, 27%, 95%)!important;
+  margin-left: 10px!important;
+  margin-right: 90px!important;
+  margin-top: 15px;
+  margin-bottom: 10px;
+  padding: 0px!important;
+}
+.NavIn{
+ padding-right: 350px!important;
+}
+.fa-magnifying-glass{
+  top:24%;
+  color:#ccc
+}
+/* header Styling */
+.header-content{
+  background-image: url(../src/assets/imgs/header-bg-svg.svg);
+  background-size: cover;
+  background-position: 100% 100%;
+}
+.section-container{
+  background-color: #f0ffef
+}
+
+.Register-overlay{
+  background: linear-gradient(51.22deg, rgba(55, 140, 47, 0.63) -22.39%, rgba(0, 0, 0, 0.6237) 61.76%);
+
+}
+.g-log{
+  color: #4AA35A;
+  font-weight: 500;
+}
+.Reg-Btn{
+  border: none;
+  
+}
+.form-group input{
+  font-size: 14px;
+  padding-left: 24px;
+}
+.form-group{
+  position: relative;
+}
+.form-group i.left-icon {
+  position: absolute;
+  margin-left:5px;
+  margin-top: 12px;
+  bottom: 30%;
+  color: #ccc;
+
+
+}
+.form-group i.left-icon:after{
+  content: '';
+  background-color: #ccc;
+  width: 1px;
+  height: 22px;
+  position: absolute;
+  left: 17px;
+  bottom: -5px;
+}
+
+.form-group i.right-icon {
+  position: absolute;
+  margin-left:3px;
+  margin-top: 12px;
+  bottom: 28%;
+  left: 53%;
+  color: #ccc;
+
+}
+.form-group i.right-icon:after{
+  content: '';
+  background-color: #ccc;
+  width: 1px;
+  height: 22px;
+  position: absolute;
+  left: 18px;
+  bottom: -5px;
+}
+
+.eye-pass{
+  position: absolute;
+  left: 38%;
+  top: 30%;
+  color: #ccc;
+
+}
+.eye-confirm{
+  position: absolute;
+  left: 91%;
+  top: 30%;
+  color: #ccc;
+
+}
+.text-black,.text-success{
+  font-weight: 500;
+}
+.container-fluid{
+  padding-left: 0px!important;
+}
+
+.box{
+  box-shadow: 1px 3px #e3e2e2;
+
+}
+.eye-3{
+  position: absolute;
+  left: 91%;
+  top: 30%;
+  color: #ccc;
+}
