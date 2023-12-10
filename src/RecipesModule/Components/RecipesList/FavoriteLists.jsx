@@ -94,7 +94,7 @@ getToastValue('success','Deleted Successfully')
   <div className="position-relative">
       {fav?.recipe?.imagePath?(<img className='img-fluid rounded-3' src={`https://upskilling-egypt.com/`+fav?.recipe?.imagePath} />):(<img className='img-fluid'src={avatar}/>)}
 <div className=" text-end position-absolute top-0 end-0 me-2">
-<i onClick={()=>showDeleteModal(fav?.recipe?.id)}  className ="fa-solid fa-heart text-success"></i>
+<i onClick={()=>showDeleteModal(fav?.id)}  className ="fa-solid fa-heart text-success"></i>
 </div>
       </div>
       <div className="text-start ps-3">
