@@ -42,7 +42,7 @@ html, body {
 
 /* Gradient Backgrounds */
 .bg-gradient-primary {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+  background: linear-gradient(135deg, #4caf50 0%, #2e7d32 100%) !important;
 }
 
 .bg-gradient-success {
@@ -341,22 +341,22 @@ html, body {
 
 /* Modern Table Button */
 .btn-modern-table {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+  background: linear-gradient(135deg, #4caf50 0%, #2e7d32 100%) !important;
   border: none !important;
   color: white !important;
   font-weight: 600;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+  box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
 }
 
 .btn-modern-table:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
-  background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%) !important;
+  box-shadow: 0 8px 25px rgba(76, 175, 80, 0.4);
+  background: linear-gradient(135deg, #45a049 0%, #1b5e20 100%) !important;
 }
 
 .btn-modern-table:focus {
-  box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25) !important;
+  box-shadow: 0 0 0 0.2rem rgba(76, 175, 80, 0.25) !important;
 }
 
 /* Table Responsive Enhancements */
@@ -2734,5 +2734,310 @@ background-color: #f8f9fa;
   .recipe-thumbnail:hover img,
   .pagination .page-link:hover {
     transform: none;
+  }
+}
+
+/* Enhanced Favorites Component Styling */
+.favorites-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 2rem;
+  padding: 2rem 0;
+}
+
+.favorite-card {
+  background: white;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  border: none;
+  position: relative;
+}
+
+.favorite-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+.favorite-card-image {
+  position: relative;
+  overflow: hidden;
+  height: 200px;
+}
+
+.favorite-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.favorite-card:hover .favorite-card-image img {
+  transform: scale(1.05);
+}
+
+.favorite-card-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.3) 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.favorite-card:hover .favorite-card-overlay {
+  opacity: 1;
+}
+
+.favorite-card-actions {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 2;
+}
+
+.favorite-card-badge {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  z-index: 2;
+}
+
+.favorite-card-content {
+  padding: 1.5rem;
+}
+
+.favorite-card-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #2c3e50;
+  margin-bottom: 0.75rem;
+  line-height: 1.3;
+}
+
+.favorite-card-tag {
+  display: inline-block;
+  margin-bottom: 1rem;
+}
+
+.favorite-card-price {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #28a745;
+  margin-bottom: 1rem;
+}
+
+.favorite-card-description {
+  color: #6c757d;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin-bottom: 0;
+}
+
+/* Favorites Empty State */
+.favorites-empty-state {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-radius: 20px;
+  margin: 2rem 0;
+}
+
+.favorites-empty-icon {
+  font-size: 4rem;
+  color: #dee2e6;
+  margin-bottom: 1.5rem;
+}
+
+.favorites-empty-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #6c757d;
+  margin-bottom: 0.75rem;
+}
+
+.favorites-empty-description {
+  color: #adb5bd;
+  font-size: 1rem;
+  margin-bottom: 0;
+}
+
+/* Favorites Loading State */
+.favorites-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-radius: 20px;
+  margin: 2rem 0;
+}
+
+.favorites-loading-spinner {
+  margin-bottom: 1.5rem;
+}
+
+.favorites-loading-text {
+  color: #6c757d;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+/* Responsive Favorites Grid */
+@media (max-width: 1200px) {
+  .favorites-grid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 992px) {
+  .favorites-grid {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1.25rem;
+  }
+  
+  .favorite-card-content {
+    padding: 1.25rem;
+  }
+  
+  .favorite-card-title {
+    font-size: 1.1rem;
+  }
+  
+  .favorite-card-price {
+    font-size: 1.25rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .favorites-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+    padding: 1rem 0;
+  }
+  
+  .favorite-card-image {
+    height: 160px;
+  }
+  
+  .favorite-card-content {
+    padding: 1rem;
+  }
+  
+  .favorite-card-title {
+    font-size: 1rem;
+  }
+  
+  .favorite-card-price {
+    font-size: 1.1rem;
+  }
+  
+  .favorite-card-description {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .favorites-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .favorite-card-image {
+    height: 180px;
+  }
+  
+  .favorites-empty-state,
+  .favorites-loading {
+    padding: 3rem 1.5rem;
+  }
+  
+  .favorites-empty-icon {
+    font-size: 3rem;
+  }
+  
+  .favorites-empty-title {
+    font-size: 1.25rem;
+  }
+}
+
+/* Enhanced Delete Modal Styling */
+.delete-modal-header {
+  background: linear-gradient(135deg, #dc3545 0%, #c82333 100%) !important;
+  border: none !important;
+  border-radius: 20px 20px 0 0 !important;
+}
+
+.delete-modal-body {
+  padding: 2rem !important;
+  text-align: center;
+}
+
+.delete-modal-icon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 1.5rem;
+  background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  color: #dc3545;
+}
+
+.delete-modal-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #2c3e50;
+  margin-bottom: 1rem;
+}
+
+.delete-modal-description {
+  color: #6c757d;
+  font-size: 1rem;
+  line-height: 1.5;
+  margin-bottom: 2rem;
+}
+
+.delete-modal-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.delete-modal-btn {
+  min-width: 140px;
+  padding: 0.75rem 1.5rem;
+  border-radius: 50px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.delete-modal-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Responsive Delete Modal */
+@media (max-width: 576px) {
+  .delete-modal-body {
+    padding: 1.5rem !important;
+  }
+  
+  .delete-modal-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .delete-modal-btn {
+    width: 100%;
+    max-width: 200px;
   }
 }

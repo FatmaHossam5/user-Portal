@@ -156,8 +156,8 @@ getAllRecipes(1);
         
         {/* Modern Recipe Details Modal */}
         <Modal show={modalState==='view-modal'} onHide={handleClose} size="xl" centered>
-          <Modal.Header closeButton className="border-0 pb-0 bg-gradient-primary">
-            <Modal.Title className="fw-bold text-white">
+          <Modal.Header closeButton className="border-0 pb-3 bg-gradient-success">
+            <Modal.Title className="fw-bold text-white ">
               <i className="fas fa-utensils me-2"></i>
               Recipe Details
             </Modal.Title>
@@ -165,11 +165,11 @@ getAllRecipes(1);
           <Modal.Body className="pt-0">
             <div className="row g-4">
               <div className="col-md-6">
-                <div className="recipe-image-container position-relative">
+                <div className="recipe-image-container position-relative mt-3">
                   {recipeDetails?.imagePath ? (
                     <img 
                       className='img-fluid rounded-4 shadow-lg' 
-                      src={`https://upskilling-egypt.com/`+recipeDetails?.imagePath}
+                      src={`https://upskilling-egypt.com:3006/`+recipeDetails?.imagePath}
                       alt={recipeDetails?.name || 'Recipe'}
                       style={{width: '100%', height: '300px', objectFit: 'cover'}}
                     />
@@ -181,7 +181,7 @@ getAllRecipes(1);
                 </div>
               </div>
               <div className="col-md-6">
-                <div className="recipe-details">
+                <div className="recipe-details mt-3">
                   <h3 className="fw-bold text-dark mb-3">{recipeDetails?.name}</h3>
                   
                   <div className="mb-4">
