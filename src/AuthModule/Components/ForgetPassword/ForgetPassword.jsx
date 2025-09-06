@@ -25,59 +25,103 @@ const {requestHeaders,baseUrl}=useContext(AuthContext)
 })
  }
   return (
-    <div  >
-            <div className="container-fluid ">
-            <div className="row    ">
-       
-         
-       <div className="img text-center ">
-           <img src={logo} className='w-50' alt="logo" />
-       </div>
-     
-       <form className='w-75 m-auto'onSubmit={handleSubmit(onSubmit)} >
- 
-       <h3>Change Your Password</h3>
-       <p className='text-color'>Enter your details below</p>
-           <div className="form-group my-3">
-           <input className='form-control email  px-4 ' type="password" placeholder='old Password'
-          {...register("oldPassword",{required:true})}
-            />
-            {errors.oldPassword&&errors.oldPassword.type==='required'&&(<span className='text-danger'>old password is required</span>)}
-            <i className="fa-solid fa-mobile  left-icon"></i>
-            <i className="fa-regular fa-eye eye-pass eye-3 "></i>
+    <div className="AuthContainer">
+        <div className="row bg-overlay vh-100 g-0">
+            <div className="col-12 col-md-8 col-lg-6 col-xl-5 m-auto">
+                <div className="bg-white login-card shadow-lg">
+                    {/* Logo Section */}
+                    <div className="text-center mb-4">
+                        <img src={logo} className='login-logo' alt="Company Logo" />
+                    </div>
+                  
+                    {/* Form Section */}
+                    <form className='login-form' onSubmit={handleSubmit(onSubmit)}>
+                        <div className="text-center mb-4">
+                            <h2 className="login-title mb-2">Change Password</h2>
+                            <p className='login-subtitle'>Enter your current and new password details</p>
+                        </div>
 
-           </div>
-           
-           <div className="form-group my-3">
-           <input className='form-control  px-4' type="password" placeholder='New Password'
-           {...register("newPassword",{required:true})}
-           />
-            {errors.newPassword&&errors.newPassword.type==='required'&&(<span className='text-danger'>newPassword is required</span>)}
-              <i className="fa-solid fa-lock  left-icon"></i>
-            <i className="fa-regular fa-eye eye-pass eye-3 "></i>
-        
+                        {/* Old Password Field */}
+                        <div className="form-group mb-4">
+                            <label htmlFor="oldPassword" className="form-label">Current Password</label>
+                            <div className="input-wrapper">
+                                <input 
+                                    id="oldPassword"
+                                    className={`form-control ${errors.oldPassword ? 'is-invalid' : ''}`}
+                                    type="password" 
+                                    placeholder='Enter your current password'
+                                    {...register("oldPassword", {
+                                        required: "Current password is required"
+                                    })}
+                                />
+                                <i className="fa-solid fa-lock input-icon"></i>
+                            </div>
+                            {errors.oldPassword && (
+                                <div className="invalid-feedback d-block">
+                                    {errors.oldPassword.message}
+                                </div>
+                            )}
+                        </div>
 
+                        {/* New Password Field */}
+                        <div className="form-group mb-4">
+                            <label htmlFor="newPassword" className="form-label">New Password</label>
+                            <div className="input-wrapper">
+                                <input 
+                                    id="newPassword"
+                                    className={`form-control ${errors.newPassword ? 'is-invalid' : ''}`}
+                                    type="password" 
+                                    placeholder='Enter your new password'
+                                    {...register("newPassword", {
+                                        required: "New password is required",
+                                        minLength: {
+                                            value: 6,
+                                            message: "Password must be at least 6 characters"
+                                        }
+                                    })}
+                                />
+                                <i className="fa-solid fa-lock input-icon"></i>
+                            </div>
+                            {errors.newPassword && (
+                                <div className="invalid-feedback d-block">
+                                    {errors.newPassword.message}
+                                </div>
+                            )}
+                        </div>
 
-           </div>
-        
-           <div className="form-group my-3">
-           <input className='form-control  px-4' type="password" placeholder=' Confirm New Password'
-           {...register("confirmNewPassword",{required:true})}
-           />
-            {errors.confirmNewPassword&&errors.confirmNewPassword.type==='required'&&(<span className='text-danger'>confirmNewPassword is required</span>)}
+                        {/* Confirm New Password Field */}
+                        <div className="form-group mb-4">
+                            <label htmlFor="confirmNewPassword" className="form-label">Confirm New Password</label>
+                            <div className="input-wrapper">
+                                <input 
+                                    id="confirmNewPassword"
+                                    className={`form-control ${errors.confirmNewPassword ? 'is-invalid' : ''}`}
+                                    type="password" 
+                                    placeholder='Confirm your new password'
+                                    {...register("confirmNewPassword", {
+                                        required: "Please confirm your new password"
+                                    })}
+                                />
+                                <i className="fa-solid fa-lock input-icon"></i>
+                            </div>
+                            {errors.confirmNewPassword && (
+                                <div className="invalid-feedback d-block">
+                                    {errors.confirmNewPassword.message}
+                                </div>
+                            )}
+                        </div>
 
-              <i className="fa-solid fa-lock  left-icon"></i>
-            <i className="fa-regular fa-eye eye-pass eye-3 "></i>
-
-           </div>
-         <button className='bg-success form-control text-white logBtn mt-5'>Change Password</button>
-       </form>
-   </div>
-
+                        {/* Submit Button */}
+                        <button 
+                            type="submit"
+                            className="btn btn-success w-100 login-btn"
+                        >
+                            Change Password
+                        </button>
+                    </form>
+                </div>
             </div>
-   
-      
-   
-</div>
+        </div>
+    </div>
   )
 }

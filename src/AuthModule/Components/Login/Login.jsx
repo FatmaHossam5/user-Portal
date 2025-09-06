@@ -8,71 +8,125 @@ import 'react-toastify/dist/ReactToastify.css';
 import { AuthContext } from '../../../Context/AuthContext'
 import { ToastContext } from '../../../Context/ToastContext'
 
-
-
 export default function Login({saveUserData}) {
-    const {register,handleSubmit,formState:{errors}}=useForm();
-   const {baseUrl,requestHeaders}=useContext(AuthContext)
-  const{getToastValue}= useContext(ToastContext)
-    const navigate=useNavigate()
-    const[isLoading,setIsLoading]=useState(false)
-const Login =(data)=>{
-axios.post(`${baseUrl}/Users/Login`,data)
-
-.then((response)=>{
-   
-    localStorage.setItem("userToken",response?.data?.token)
-    saveUserData()
-    setIsLoading(true)
-   
-    navigate('/dashboard')
-   
-}).catch((error)=>{
-    console.log(error);
-    setIsLoading(false)
-    getToastValue("error",error?.response?.data?.message);
-
-})
-}
+    const {register, handleSubmit, formState: {errors}} = useForm();
+    const {baseUrl, requestHeaders} = useContext(AuthContext)
+    const {getToastValue} = useContext(ToastContext)
+    const navigate = useNavigate()
+    const [isLoading, setIsLoading] = useState(false)
+    
+    const handleLogin = (data) => {
+        setIsLoading(true)
+        axios.post(`${baseUrl}/Users/Login`, data)
+        .then((response) => {
+            localStorage.setItem("userToken", response?.data?.token)
+            saveUserData()
+            navigate('/dashboard')
+        }).catch((error) => {
+            console.log(error);
+            setIsLoading(false)
+            getToastValue("error", error?.response?.data?.message);
+        })
+    }
 
 
 
 
 
   return (
-    <div className="Auth-container">
-      
-            
-        <div className="row bg-overlay  vh-100">
-            <div className="col-md-6 m-auto">
-                <div className="bg-white p-2" >
-                    <div className="img text-center ">
-                        <img src={logo} className='w-50' alt="logo" />
+    <div className="AuthContainer">
+        <div className="row bg-overlay vh-100 g-0">
+            <div className="col-12 col-md-8 col-lg-6 col-xl-5 m-auto">
+                <div className="bg-white login-card shadow-lg">
+                    {/* Logo Section */}
+                    <div className="text-center mb-4">
+                        <img src={logo} className='login-logo' alt="Company Logo" />
                     </div>
                   
-                    <form className='w-75 m-auto' onSubmit={handleSubmit(Login)} >
-              
-                    <h3>Log In</h3>
-                    <p className='text-color'>welcome Back!Please enter your details</p>
-                        <div className="form-group my-3">
-                        <input className='form-control email  px-4 ' type="email" placeholder='Enter your E-mail'
-                        {...register("email",{required:true,pattern:/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/})}
-                         />
-                         {errors.email&&errors.email.type==="required"&&(<span className='text-danger'>email is required</span>)}
-                         <i className="fa-solid fa-mobile left-icon"></i>
+                    {/* Form Section */}
+                    <form className='login-form' onSubmit={handleSubmit(handleLogin)}>
+                        <div className="text-center mb-4">
+                            <h2 className="login-title mb-2">Welcome Back</h2>
+                            <p className='login-subtitle'>Please sign in to your account</p>
                         </div>
-                        <div className="form-group my-3">
-                       <input className='form-control px-4' type="password" placeholder='Password' 
-                       {...register("password",{required:true,pattern:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[a-zA-Z\d!@#$%^&*()_+]{6,}$/})}/>
-                           {errors.password&&errors.password.type==="required"&&(<span className='text-danger'>Password Is required</span>)}
-                           <i className="fa-solid fa-lock left-icon"></i>
+
+                        {/* Email Field */}
+                        <div className="form-group mb-4">
+                            <label htmlFor="email" className="form-label">Email Address</label>
+                            <div className="input-wrapper">
+                                <input 
+                                    id="email"
+                                    className={`form-control ${errors.email ? 'is-invalid' : ''}`}
+                                    type="email" 
+                                    placeholder='Enter your email address'
+                                    {...register("email", {
+                                        required: "Email is required",
+                                        pattern: {
+                                            value: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/,
+                                            message: "Please enter a valid email address"
+                                        }
+                                    })}
+                                />
+                                <i className="fa-solid fa-envelope input-icon"></i>
+                            </div>
+                            {errors.email && (
+                                <div className="invalid-feedback d-block">
+                                    {errors.email.message}
+                                </div>
+                            )}
                         </div>
-                        <div className="form-group  my-3 position-relative d-flex justify-content-between">
-                            <Link to ="/Register" className='text-black text-decoration-none'> RegisterNow? </Link>
-                            <Link to ="/RequestResetPassword" className='text-success text-decoration-none '> Forget Password? </Link>
-                            
+
+                        {/* Password Field */}
+                        <div className="form-group mb-4">
+                            <label htmlFor="password" className="form-label">Password</label>
+                            <div className="input-wrapper">
+                                <input 
+                                    id="password"
+                                    className={`form-control ${errors.password ? 'is-invalid' : ''}`}
+                                    type="password" 
+                                    placeholder='Enter your password'
+                                    {...register("password", {
+                                        required: "Password is required",
+                                        pattern: {
+                                            value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[a-zA-Z\d!@#$%^&*()_+]{6,}$/,
+                                            message: "Password must contain at least 6 characters with uppercase, lowercase, number and special character"
+                                        }
+                                    })}
+                                />
+                                <i className="fa-solid fa-lock input-icon"></i>
+                            </div>
+                            {errors.password && (
+                                <div className="invalid-feedback d-block">
+                                    {errors.password.message}
+                                </div>
+                            )}
                         </div>
-                      <button className='bg-success form-control text-white logBtn' disabled={isLoading}>Login</button>
+
+                        {/* Links Section */}
+                        <div className="d-flex justify-content-between align-items-center mb-4">
+                            <Link to="/Register" className='login-link'>
+                                Don't have an account? <span className="text-success fw-semibold">Sign up</span>
+                            </Link>
+                            <Link to="/RequestResetPassword" className='login-link text-success'>
+                                Forgot Password?
+                            </Link>
+                        </div>
+
+                        {/* Submit Button */}
+                        <button 
+                            type="submit"
+                            className={`btn btn-success w-100 login-btn ${isLoading ? 'loading' : ''}`}
+                            disabled={isLoading}
+                        >
+                            {isLoading ? (
+                                <>
+                                    <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                                    Signing In...
+                                </>
+                            ) : (
+                                'Sign In'
+                            )}
+                        </button>
                     </form>
                 </div>
             </div>

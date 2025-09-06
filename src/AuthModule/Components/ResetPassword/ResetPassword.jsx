@@ -24,53 +24,131 @@ export default function ResetPassword() {
        getToastValue('error',error.response.data.message);
        })
      }
-  return (<>
-  <div className="Auth-container">
-          
-        <div className="row bg-overlay  vh-100">
-            <div className="col-md-6 m-auto">
-                <div className="bg-white p-2" >
-                    <div className="img text-center ">
-                        <img src={logo} className='w-25' alt="logo" />
+  return (
+    <div className="AuthContainer">
+        <div className="row bg-overlay vh-100 g-0">
+            <div className="col-12 col-md-8 col-lg-6 col-xl-5 m-auto">
+                <div className="bg-white login-card shadow-lg">
+                    {/* Logo Section */}
+                    <div className="text-center mb-4">
+                        <img src={logo} className='login-logo' alt="Company Logo" />
                     </div>
                   
-                    <form className='w-75 m-auto'  onSubmit={handleSubmit(onSubmit)}>
-              
-                    <h3> Reset  Password</h3>
-                    <p>Please Enter Your Otp  or Check Your Inbox</p>
-                   
-                        <div className="form-group my-3">
-                        <input className='form-control email px-4 ' type="email" placeholder='Enter your E-mail'
-                        {...register("email",{required:true,pattern:/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/})}/>
-                      {errors.email&&errors.email.type==="required"&&(<span className='text-danger'>email is required</span>)}
-                      <i className="fa-regular fa-envelope left-icon"></i>
+                    {/* Form Section */}
+                    <form className='login-form' onSubmit={handleSubmit(onSubmit)}>
+                        <div className="text-center mb-4">
+                            <h2 className="login-title mb-2">Reset Password</h2>
+                            <p className='login-subtitle'>Please enter your OTP and new password</p>
                         </div>
-                        <div className="form-group my-3">
-                        <input className='form-control my-2'  placeholder='OTP'
-                        {...register("seed",{required:true})}
-                        />
-                        {errors.seed&&errors.seed.type==="required"&&(<span className='text-danger '>OTP is required</span>)}
+
+                        {/* Email Field */}
+                        <div className="form-group mb-4">
+                            <label htmlFor="email" className="form-label">Email Address</label>
+                            <div className="input-wrapper">
+                                <input 
+                                    id="email"
+                                    className={`form-control ${errors.email ? 'is-invalid' : ''}`}
+                                    type="email" 
+                                    placeholder='Enter your email address'
+                                    {...register("email", {
+                                        required: "Email is required",
+                                        pattern: {
+                                            value: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/,
+                                            message: "Please enter a valid email address"
+                                        }
+                                    })}
+                                />
+                                <i className="fa-solid fa-envelope input-icon"></i>
+                            </div>
+                            {errors.email && (
+                                <div className="invalid-feedback d-block">
+                                    {errors.email.message}
+                                </div>
+                            )}
                         </div>
-                        <div className="form-group my-3">
-                        <input className='form-control' type="password" placeholder='New Password'
-                        {...register("password",{required:true})}
-                        />
-                        {errors.password&&errors.password.type==="required"&&(<span className='text-danger'> Password is required</span>)}
+
+                        {/* OTP Field */}
+                        <div className="form-group mb-4">
+                            <label htmlFor="seed" className="form-label">OTP Code</label>
+                            <div className="input-wrapper">
+                                <input 
+                                    id="seed"
+                                    className={`form-control ${errors.seed ? 'is-invalid' : ''}`}
+                                    type="text" 
+                                    placeholder='Enter OTP code'
+                                    {...register("seed", {
+                                        required: "OTP is required"
+                                    })}
+                                />
+                                <i className="fa-solid fa-key input-icon"></i>
+                            </div>
+                            {errors.seed && (
+                                <div className="invalid-feedback d-block">
+                                    {errors.seed.message}
+                                </div>
+                            )}
                         </div>
-                        <div className="form-group my-3">
-                        <input className='form-control' type="password" placeholder='confirm New Password'name='confirmNewPassword'
-                        {...register("confirmPassword",{required:true})}
-                        />
-                        {errors.confirmPassword&&errors.confirmPassword.type==="required"&&(<span className='text-danger'> Required </span>)}
+
+                        {/* New Password Field */}
+                        <div className="form-group mb-4">
+                            <label htmlFor="password" className="form-label">New Password</label>
+                            <div className="input-wrapper">
+                                <input 
+                                    id="password"
+                                    className={`form-control ${errors.password ? 'is-invalid' : ''}`}
+                                    type="password" 
+                                    placeholder='Enter new password'
+                                    {...register("password", {
+                                        required: "Password is required",
+                                        minLength: {
+                                            value: 6,
+                                            message: "Password must be at least 6 characters"
+                                        }
+                                    })}
+                                />
+                                <i className="fa-solid fa-lock input-icon"></i>
+                            </div>
+                            {errors.password && (
+                                <div className="invalid-feedback d-block">
+                                    {errors.password.message}
+                                </div>
+                            )}
                         </div>
-                      
-                      <button className='bg-success form-control text-white'>Reset Password</button>
+
+                        {/* Confirm Password Field */}
+                        <div className="form-group mb-4">
+                            <label htmlFor="confirmPassword" className="form-label">Confirm New Password</label>
+                            <div className="input-wrapper">
+                                <input 
+                                    id="confirmPassword"
+                                    className={`form-control ${errors.confirmPassword ? 'is-invalid' : ''}`}
+                                    type="password" 
+                                    placeholder='Confirm new password'
+                                    {...register("confirmPassword", {
+                                        required: "Please confirm your password"
+                                    })}
+                                />
+                                <i className="fa-solid fa-lock input-icon"></i>
+                            </div>
+                            {errors.confirmPassword && (
+                                <div className="invalid-feedback d-block">
+                                    {errors.confirmPassword.message}
+                                </div>
+                            )}
+                        </div>
+
+                        {/* Submit Button */}
+                        <button 
+                            type="submit"
+                            className="btn btn-success w-100 login-btn"
+                        >
+                            Reset Password
+                        </button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-  </>
 
   )
 }
