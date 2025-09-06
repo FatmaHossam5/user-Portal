@@ -30,6 +30,8 @@ export default function RequestResetPassword() {
             headers: headers
         })
             .then((response) => {
+              console.log(response);
+              
                 getToastValue('success', 'Password reset link sent! Please check your email.')
                 navigate('/ResetPassword')
             })

@@ -21,8 +21,11 @@ export default function Register() {
     setIsLoading(true);
     axios.post(`${baseUrl}/Users/Register`, data)
       .then((response) => {
-        getToastValue('success', response?.data?.message);
-        navigate('/Login');
+        getToastValue('success', response?.data?.message || 'Account created successfully! Please verify your email.');
+        // Redirect to email verification page with email data
+        navigate('/EmailVerification', { 
+          state: { email: data.email } 
+        });
       })
       .catch((error) => {
         console.log(error);

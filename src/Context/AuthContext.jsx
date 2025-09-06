@@ -10,7 +10,7 @@ export default function AuthContextProvider (props){
         Authorization:`Bearer ${localStorage.getItem("userToken")}`,
         
       }
-      let baseUrl ='https://upskilling-egypt.com:443/api/v1'
+      let baseUrl ='https://upskilling-egypt.com:3006/api/v1'
  
     let saveUserData=()=>{
       let encodedToken=localStorage.getItem("userToken");

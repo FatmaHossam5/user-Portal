@@ -2,6 +2,7 @@ import { useContext } from 'react'
 import { RouterProvider, createHashRouter } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
 import './App.css'
+import EmailVerification from './AuthModule/Components/EmailVerification/EmailVerification'
 import ForgetPassword from './AuthModule/Components/ForgetPassword/ForgetPassword'
 import Login from './AuthModule/Components/Login/Login'
 import Register from './AuthModule/Components/Register/Register'
@@ -40,6 +41,7 @@ children:[{index:true,element:<Home userData={userData}/>},
       {index:true,element:<Login saveUserData={saveUserData} />},
       {path:"/Register",element:<Register/>},
       {path:"/login",element:<Login saveUserData={saveUserData} />},
+      {path:"/EmailVerification",element:<EmailVerification/>},
       {path:"/forgetPassword",element:<ForgetPassword/>},
       {path:"/RequestResetPassword",element:<RequestResetPassword/>},
       {path:"/ResetPassword",element:<ResetPassword/>},

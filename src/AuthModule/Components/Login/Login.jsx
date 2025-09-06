@@ -23,9 +23,32 @@ export default function Login({saveUserData}) {
             saveUserData()
             navigate('/dashboard')
         }).catch((error) => {
-            console.log(error);
+            console.log('Login Error:', error);
+            console.log('Error Response:', error?.response?.data);
             setIsLoading(false)
-            getToastValue("error", error?.response?.data?.message);
+            
+            // Check if the error is related to email verification
+            const errorMessage = error?.response?.data?.message?.toLowerCase() || '';
+            const errorCode = error?.response?.status;
+            
+            // More comprehensive check for email verification errors
+            if (errorMessage && (
+                errorMessage.includes('verify') || 
+                errorMessage.includes('verification') || 
+                errorMessage.includes('not verified') ||
+                errorMessage.includes('email not verified') ||
+                errorMessage.includes('account not verified') ||
+                errorMessage.includes('please verify') ||
+                errorCode === 403 // Often used for unverified accounts
+            )) {
+                // Redirect to email verification page with email data
+                navigate('/EmailVerification', { 
+                    state: { email: data.email } 
+                });
+                getToastValue("warning", "Please verify your email address to continue");
+            } else {
+                getToastValue("error", error?.response?.data?.message || "Login failed. Please try again.");
+            }
         })
     }
 
@@ -109,6 +132,14 @@ export default function Login({saveUserData}) {
                             </Link>
                             <Link to="/RequestResetPassword" className='login-link text-success'>
                                 Forgot Password?
+                            </Link>
+                        </div>
+                        
+                        {/* Email Verification Link */}
+                        <div className="text-center mb-3">
+                            <Link to="/EmailVerification" className='login-link text-warning'>
+                                <i className="fa-solid fa-envelope me-1"></i>
+                                Verify Email Address
                             </Link>
                         </div>
 
