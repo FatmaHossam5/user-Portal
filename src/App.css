@@ -2397,6 +2397,524 @@ background-color: #f8f9fa;
   margin-bottom: 0.5rem;
 }
 
+/* Password Strength Indicator */
+.password-strength {
+  margin-top: 0.5rem;
+}
+
+.strength-bar {
+  width: 100%;
+  height: 4px;
+  background-color: #e9ecef;
+  border-radius: 2px;
+  overflow: hidden;
+  margin-bottom: 0.25rem;
+}
+
+.strength-fill {
+  height: 100%;
+  transition: all 0.3s ease;
+  border-radius: 2px;
+}
+
+.strength-fill.weak {
+  width: 33%;
+  background-color: #dc3545;
+}
+
+.strength-fill.medium {
+  width: 66%;
+  background-color: #ffc107;
+}
+
+.strength-fill.strong {
+  width: 100%;
+  background-color: #28a745;
+}
+
+.strength-text {
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+/* Enhanced Form Validation States */
+.form-control.is-valid {
+  border-color: #28a745;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%2328a745' d='m2.3 6.73.94-.94 1.89-1.89 1.89 1.89.94.94-2.83 2.83z'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right calc(0.375em + 0.1875rem) center;
+  background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
+}
+
+.valid-feedback {
+  display: block;
+  width: 100%;
+  margin-top: 0.25rem;
+  font-size: 0.875rem;
+  color: #28a745;
+  font-weight: 500;
+}
+
+/* Password Change Icon Animation */
+.password-change-icon {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Enhanced Button States */
+.login-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+.login-btn:disabled:hover {
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* Improved Focus States for Accessibility */
+.form-control:focus-visible,
+.login-btn:focus-visible {
+  outline: 2px solid #28a745;
+  outline-offset: 2px;
+}
+
+/* Enhanced Mobile Responsiveness for Password Form */
+@media (max-width: 768px) {
+  .password-change-icon i {
+    font-size: 2rem !important;
+  }
+  
+  .login-title {
+    font-size: 1.75rem;
+  }
+  
+  .login-subtitle {
+    font-size: 0.95rem;
+  }
+  
+  .strength-text {
+    font-size: 0.7rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .password-change-icon i {
+    font-size: 1.75rem !important;
+  }
+  
+  .login-title {
+    font-size: 1.5rem;
+  }
+  
+  .login-subtitle {
+    font-size: 0.9rem;
+  }
+  
+  .form-label {
+    font-size: 0.9rem;
+  }
+  
+  .strength-text {
+    font-size: 0.65rem;
+  }
+}
+
+/* Modern Modal Styling for ForgetPassword Component */
+.forget-password-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.modal-backdrop-blur {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  animation: fadeIn 0.3s ease-out;
+}
+
+.modal-content-container {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 800px;
+  animation: slideInUp 0.4s ease-out;
+}
+
+.modern-modal-card {
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+  border-radius: 24px;
+  padding: 2rem 3rem;
+  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  position: relative;
+  overflow: hidden;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.modern-modal-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+  border-radius: 24px 24px 0 0;
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  background: rgba(255, 255, 255, 0.9);
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 20;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.modal-close-btn:hover {
+  background: rgba(220, 53, 69, 0.1);
+  color: #dc3545;
+  transform: scale(1.1);
+  box-shadow: 0 6px 20px rgba(220, 53, 69, 0.2);
+}
+
+.modal-close-btn i {
+  font-size: 1.1rem;
+  color: #6c757d;
+  transition: color 0.3s ease;
+}
+
+.modal-close-btn:hover i {
+  color: #dc3545;
+}
+
+.modal-header-section {
+  margin-bottom: 0.5rem;
+}
+
+.modal-logo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.modal-logo {
+  width: 100px;
+  height: auto;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+  transition: transform 0.3s ease;
+}
+
+.modal-logo:hover {
+  transform: scale(1.05);
+}
+
+.modern-form {
+  width: 100%;
+}
+
+.modal-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #2c3e50;
+  margin-bottom: 0.75rem;
+  background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.modal-subtitle {
+  color: #6c757d;
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.icon-container {
+  width: 70px;
+  height: 70px;
+  background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  box-shadow: 0 8px 25px rgba(40, 167, 69, 0.3);
+  animation: pulse 2s infinite;
+}
+
+.icon-container i {
+  font-size: 1.75rem;
+  color: white;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.modern-submit-btn {
+  background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+  border: none;
+  border-radius: 12px;
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: white;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 20px rgba(40, 167, 69, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.modern-submit-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.modern-submit-btn:hover::before {
+  left: 100%;
+}
+
+.modern-submit-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(40, 167, 69, 0.4);
+  background: linear-gradient(135deg, #218838 0%, #1ea085 100%);
+}
+
+.modern-submit-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: 0 6px 20px rgba(40, 167, 69, 0.2) !important;
+}
+
+.security-badge {
+  display: inline-flex;
+  align-items: center;
+  background: linear-gradient(135deg, #e8f5e8 0%, #d4edda 100%);
+  padding: 0.75rem 1.5rem;
+  border-radius: 25px;
+  color: #155724;
+  font-size: 0.9rem;
+  font-weight: 500;
+  box-shadow: 0 4px 15px rgba(40, 167, 69, 0.1);
+  border: 1px solid rgba(40, 167, 69, 0.1);
+}
+
+.security-badge i {
+  color: #28a745;
+  font-size: 1rem;
+}
+
+/* Enhanced Form Controls for Modal */
+.modern-form .form-control {
+  border: 2px solid #e9ecef;
+  border-radius: 12px;
+  padding: 1rem 1.25rem 1rem 3rem;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.modern-form .form-control:focus {
+  border-color: #28a745;
+  box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.15);
+  background: white;
+  transform: translateY(-1px);
+}
+
+.modern-form .form-label {
+  font-weight: 600;
+  color: #495057;
+  margin-bottom: 0.75rem;
+  font-size: 1rem;
+}
+
+.modern-form .input-wrapper {
+  position: relative;
+}
+
+.modern-form .input-icon {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #6c757d;
+  font-size: 1rem;
+  z-index: 2;
+}
+
+/* Modal Animations */
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Responsive Modal Design */
+@media (max-width: 768px) {
+  .forget-password-modal {
+    padding: 1rem;
+  }
+  
+  .modal-content-container {
+    max-width: 95%;
+  }
+  
+  .modern-modal-card {
+    padding: 1.5rem 2rem;
+    border-radius: 20px;
+  }
+  
+  .modal-title {
+    font-size: 1.75rem;
+  }
+  
+  .modal-subtitle {
+    font-size: 0.95rem;
+  }
+  
+  .icon-container {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .icon-container i {
+    font-size: 1.5rem;
+  }
+  
+  .modal-logo {
+    width: 100px;
+  }
+  
+  .modal-close-btn {
+    top: 1rem;
+    right: 1rem;
+    width: 35px;
+    height: 35px;
+  }
+}
+
+@media (max-width: 576px) {
+  .modal-content-container {
+    max-width: 98%;
+  }
+  
+  .modern-modal-card {
+    padding: 1.25rem 1.5rem;
+    border-radius: 16px;
+  }
+  
+  .modal-title {
+    font-size: 1.5rem;
+  }
+  
+  .modal-subtitle {
+    font-size: 0.9rem;
+  }
+  
+  .icon-container {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .icon-container i {
+    font-size: 1.5rem;
+  }
+  
+  .modal-logo {
+    width: 80px;
+  }
+  
+  .icon-container {
+    width: 55px;
+    height: 55px;
+  }
+  
+  .icon-container i {
+    font-size: 1.25rem;
+  }
+  
+  .modern-form .form-control {
+    padding: 0.875rem 1rem 0.875rem 2.75rem;
+    font-size: 0.95rem;
+  }
+  
+  .modern-form .input-icon {
+    left: 0.875rem;
+    font-size: 0.9rem;
+  }
+  
+  .modern-submit-btn {
+    padding: 0.875rem 1.5rem;
+    font-size: 1rem;
+  }
+  
+  .security-badge {
+    padding: 0.625rem 1.25rem;
+    font-size: 0.85rem;
+  }
+}
+
 /* Better focus states for accessibility */
 .form-control:focus {
   border-color: #28a745;
