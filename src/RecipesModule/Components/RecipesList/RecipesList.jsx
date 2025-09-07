@@ -1,6 +1,6 @@
 import axios from 'axios'
 import React, { useContext, useEffect, useState } from 'react'
-import { Modal, Spinner, Card, Badge, Button, Row, Col, Container, Form, InputGroup } from 'react-bootstrap'
+import { Badge, Button, Card, Col, Container, Form, InputGroup, Modal, Row, Spinner } from 'react-bootstrap'
 import { AuthContext } from '../../../Context/AuthContext'
 import { ToastContext } from '../../../Context/ToastContext'
 import Header from '../../../SharedModules/Components/Header/Header'
@@ -17,13 +17,14 @@ export default function RecipesList() {
   const[categoryList,setCategoryList]=useState([])
    const[itemId,setItemId]=useState(0)
   const[pagesArray,setPagesArray]=useState([])
-   const[recipe,setRecipe]=useState()
    const[searchTagId,setSearchTagId]=useState()
    const[searchCatId,setSearchCatId]=useState()
   const[searchInput,setSearchInput]=useState("")
    const [recipeDetails,setRecipeDetails]=useState({})
    const [loading,setLoading]=useState(false)
    const [addingToFavorites,setAddingToFavorites]=useState(false)
+   const [userFavorites,setUserFavorites]=useState([])
+   const [favoritesLoading,setFavoritesLoading]=useState(false)
 const{requestHeaders,baseUrl}=useContext(AuthContext)
 const {getToastValue }=useContext(ToastContext)
 
@@ -45,55 +46,37 @@ const {getToastValue }=useContext(ToastContext)
      
 
       const getRecipeDetails =(id)=>{
-        axios.get(`${baseUrl}/Recipe/${id}`,{headers:{
-          requestHeaders
-    
-          
-        },
-    
+        axios.get(`${baseUrl}/Recipe/${id}`,{
+          headers: requestHeaders
         }).then((response)=>{
-          
           setRecipeDetails(response?.data);
         }).catch((error)=>{
           getToastValue('error',error.response.data.message)
-          
         })
       }
 
       
   const getAllRecipes =(pageNo,name,tagId,categoryId)=>{
-    axios.get(`${baseUrl}/Recipe/`,{headers:{
-     requestHeaders
-
-      
-    },params:{
-      pageSize:5,
-      pageNumber:pageNo,
-      name,
-      tagId,
-      categoryId,
-    }
-
+    axios.get(`${baseUrl}/Recipe/`,{
+      headers: requestHeaders,
+      params:{
+        pageSize:5,
+        pageNumber:pageNo,
+        name,
+        tagId,
+        categoryId,
+      }
     }).then((response)=>{
-
-    
       setRecipeList(response?.data?.data);
       setPagesArray(Array(response.data.totalNumberOfPages).fill().map((_,i)=>i+1))
     }).catch((error)=>{
       getToastValue('error',error.response.data.message)
-      
     })
   }
   const getCategoryId =()=>{
-    axios.get(`${baseUrl}/Category/?pageSize=10&pageNumber=1`,{headers:{
-      requestHeaders
-
-      
-    },
-
+    axios.get(`${baseUrl}/Category/?pageSize=10&pageNumber=1`,{
+      headers: requestHeaders
     }).then((response)=>{
-      
-
       setCategoryList(response?.data?.data);
     }).catch((error)=>{
       getToastValue('error',error.response.data.message)
@@ -102,17 +85,30 @@ const {getToastValue }=useContext(ToastContext)
   }
   const getTagId=()=>{
     axios.get(`${baseUrl}/tag/`,{
-      headers:{
-      requestHeaders
-      }
+      headers: requestHeaders
     }).then((response)=>{
-      
       setTag(response?.data);
     }).catch((error)=>{
       getToastValue('error',error.response.data.message)
+    })
+  }
 
-    }
-    )
+  const getUserFavorites = () => {
+    setFavoritesLoading(true)
+    axios.get(`${baseUrl}/userRecipe`, {
+      headers: requestHeaders,
+      params: { pageNumber: 1, pageSize: 100 } // Get all favorites
+    }).then((response) => {
+      setUserFavorites(response?.data?.data || []);
+      setFavoritesLoading(false)
+    }).catch((error) => {
+      getToastValue('error', error.response.data.message)
+      setFavoritesLoading(false)
+    })
+  }
+
+  const isRecipeInFavorites = (recipeId) => {
+    return userFavorites.some(fav => fav.recipe?.id === recipeId);
   }
  
 const getNameValue =(name)=>{
@@ -132,9 +128,17 @@ const getNameValue =(name)=>{
   }
 
   const addToFavorite =()=>{
+    // Check if recipe is already in favorites
+    if (isRecipeInFavorites(itemId)) {
+      getToastValue('warning','This recipe is already in your favorites!')
+      return;
+    }
+
     setAddingToFavorites(true)
     axios.post (`${baseUrl}/userRecipe/`,{recipeId:itemId},{headers:requestHeaders}).then((response)=>{
       getToastValue('success','Added to favorites successfully!')
+      // Refresh favorites list to update the state
+      getUserFavorites()
       handleClose()
       setAddingToFavorites(false)
     }).catch((error)=>{
@@ -145,9 +149,8 @@ const getNameValue =(name)=>{
   useEffect(()=>{
     getTagId();
     getCategoryId();
-
-getAllRecipes(1);
-
+    getUserFavorites();
+    getAllRecipes(1);
   },[])
   return (
     <>
@@ -217,15 +220,25 @@ getAllRecipes(1);
                   <div className="d-grid">
                     <Button 
                       onClick={addToFavorite} 
-                      variant="success" 
+                      variant={isRecipeInFavorites(itemId) ? "secondary" : "success"} 
                       size="lg"
-                      disabled={addingToFavorites}
+                      disabled={addingToFavorites || isRecipeInFavorites(itemId) || favoritesLoading}
                       className="rounded-pill py-3 shadow-sm"
                     >
                       {addingToFavorites ? (
                         <>
                           <Spinner animation="border" size="sm" className="me-2" />
                           Adding to Favorites...
+                        </>
+                      ) : favoritesLoading ? (
+                        <>
+                          <Spinner animation="border" size="sm" className="me-2" />
+                          Checking Favorites...
+                        </>
+                      ) : isRecipeInFavorites(itemId) ? (
+                        <>
+                          <i className="fas fa-heart me-2"></i>
+                          Already in Favorites
                         </>
                       ) : (
                         <>
@@ -584,7 +597,7 @@ getAllRecipes(1);
                         <td className="text-center">
                           <Badge bg="info" className="px-3 py-2 rounded-pill shadow-sm">
                             <i className="fas fa-layer-group me-1"></i>
-                            {recipe?.category[0]?.name}
+                            {recipe?.category?.name || (Array.isArray(recipe?.category) && recipe?.category?.length > 0 ? recipe?.category[0]?.name : 'No Category')}
                           </Badge>
                         </td>
                         <td className="text-center">
