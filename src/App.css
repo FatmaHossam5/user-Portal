@@ -872,7 +872,7 @@ body{
 }
 
 .AuthContainer{
-background-image: url("./src/assets/imgs/ella-olsson-C1Q3qOTlegg-unsplash 1.png");
+background-image: url("/user-Portal/background.png");
 background-size: cover;
 background-position: center center;
 background-attachment: fixed;
@@ -907,7 +907,7 @@ background-color: #f8f9fa;
 /* High DPI displays */
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
   .AuthContainer {
-    background-image: url("./src/assets/imgs/ella-olsson-C1Q3qOTlegg-unsplash 1.png");
+    background-image: url("/user-Portal/background.png");
   }
 }
 
@@ -2544,6 +2544,15 @@ background-color: #f8f9fa;
   align-items: center;
   justify-content: center;
   padding: 2rem;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Prevent body scroll when modal is open */
+body.modal-open {
+  overflow: hidden;
+  position: fixed;
+  width: 100%;
 }
 
 .modal-backdrop-blur {
@@ -2576,8 +2585,10 @@ background-color: #f8f9fa;
   -webkit-backdrop-filter: blur(20px);
   position: relative;
   overflow: hidden;
-  max-height: 90vh;
-  overflow-y: auto;
+  max-height: calc(100vh - 4rem);
+  min-height: auto;
+  width: 100%;
+  margin: auto;
 }
 
 .modern-modal-card::before {
@@ -2814,6 +2825,8 @@ background-color: #f8f9fa;
 @media (max-width: 768px) {
   .forget-password-modal {
     padding: 1rem;
+    align-items: flex-start;
+    padding-top: 2rem;
   }
   
   .modal-content-container {
@@ -2823,6 +2836,7 @@ background-color: #f8f9fa;
   .modern-modal-card {
     padding: 1.5rem 2rem;
     border-radius: 20px;
+    max-height: calc(100vh - 2rem);
   }
   
   .modal-title {
@@ -2855,6 +2869,11 @@ background-color: #f8f9fa;
 }
 
 @media (max-width: 576px) {
+  .forget-password-modal {
+    padding: 0.5rem;
+    padding-top: 1rem;
+  }
+  
   .modal-content-container {
     max-width: 98%;
   }
@@ -2862,6 +2881,7 @@ background-color: #f8f9fa;
   .modern-modal-card {
     padding: 1.25rem 1.5rem;
     border-radius: 16px;
+    max-height: calc(100vh - 1rem);
   }
   
   .modal-title {

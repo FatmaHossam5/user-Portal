@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import logo from '../../../assets/imgs/4 3.png'
 import { useForm } from 'react-hook-form'
 import axios from 'axios';
@@ -17,6 +17,17 @@ const {requestHeaders,baseUrl}=useContext(AuthContext)
   // Watch password fields for validation
   const newPassword = watch("newPassword")
   const confirmPassword = watch("confirmNewPassword")
+
+  // Handle body scroll locking when modal opens/closes
+  useEffect(() => {
+    // Lock body scroll when modal opens
+    document.body.classList.add('modal-open')
+    
+    // Cleanup: unlock body scroll when modal closes
+    return () => {
+      document.body.classList.remove('modal-open')
+    }
+  }, [])
   
  const onSubmit= (data)=>{
   setIsLoading(true)
